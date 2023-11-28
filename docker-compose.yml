@@ -33,7 +33,3 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.laravel
-      depends_on:
-        - php-fpm-container
-        - nginx-container
-        - mysql-container
