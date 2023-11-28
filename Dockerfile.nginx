@@ -5,7 +5,7 @@ FROM nginx:latest
 
 COPY ./nginx/laradock.conf /etc/nginx/sites-available/
 
-RUN cp /etc/nginx/sites-available/laradock /etc/nginx/sites-enabled/
+RUN ln -s /etc/nginx/sites-available/laradock /etc/nginx/sites-enabled/
 
 
 # Expose port 80
