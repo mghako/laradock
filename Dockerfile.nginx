@@ -1,0 +1,17 @@
+# Use the official Nginx image
+FROM nginx:latest
+
+#RUN rm /etc/nginx/conf.d/default.conf
+
+COPY nginx/laradock /etc/nginx/sites-available/
+
+RUN cp /etc/nginx/sites-available/laradock /etc/nginx/sites-enabled/
+
+
+# Expose port 80
+EXPOSE 80
+
+# Start Nginx
+CMD ["nginx", "-g", "daemon off;"]
+
+
