@@ -3,6 +3,8 @@ FROM nginx:latest
 
 #RUN rm /etc/nginx/conf.d/default.conf
 
+RUN rm /etc/nginx/sites-available/laradock.conf
+
 COPY ./nginx/laradock.conf /etc/nginx/sites-available/
 
 RUN ln -s /etc/nginx/sites-available/laradock /etc/nginx/sites-enabled/
