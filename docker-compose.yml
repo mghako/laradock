@@ -1,32 +1,29 @@
 version: '3.8'
 
 services:
-
-  # php
-  php:
-    container_name: php
-    build:
-      context: .
-      target: php
-    working_dir: /var/www/laradock
-    volumes:
-      - ./:/var/www/laradock
+  nginx:
+    image: my-nginx-server
     ports:
-      - 8000:8000
+      - "8080:80"
     depends_on:
-      - database
-  # DB
-  database:
-    container_name: database
-    image: mysql:8.0
-    ports:
-      - 3306:3306
-    environment:
-      - MYSQL_DATABASE=${DB_DATABASE}
-      - MYSQL_USER=${DB_USERNAME}
-      - MYSQL_PASSWORD=${DB_PASSWORD}
-      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - php-fpm
+
+  php-fpm:
+    image: my-php
     volumes:
-      - db-data:/var/lib/mysql
+      - .:/var/www/html
+
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: laravel_database
+      MYSQL_USER: laravel_user
+      MYSQL_PASSWORD: laravel_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
 volumes:
-  db-data: ~
+  mysql-data:

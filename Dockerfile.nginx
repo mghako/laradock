@@ -1,0 +1,14 @@
+# Use the official Nginx base image
+FROM nginx:latest
+
+# Remove the default Nginx configuration
+RUN rm /etc/nginx/conf.d/default.conf
+
+# Copy your Nginx configuration
+COPY --chown=www-data:www-data laradock.conf /etc/nginx/conf.d/
+
+# Expose ports
+EXPOSE 80
+
+# Start Nginx
+CMD ["nginx", "-g", "daemon off;"]
